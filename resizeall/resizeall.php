@@ -1,25 +1,29 @@
 <?php
 
-$fullSizeWidth = 800;
-$fullSizeHeight = 600;
-
 include(__DIR__."/imageresize.php");
 
-$originalFolder = "./original";
-$fullFolder = "./full";
+if (count($argv) == 3) {
 
-$files = scandir($originalFolder);
-foreach ($files as $file) {
-  if ($file != "." && $file != ".." && !is_dir($originalFolder."/".$file)) {
-    $image = new \Eventviva\ImageResize($originalFolder."/".$file);
-    $image->quality_png = 9;
-    $image->quality_jpg = 90;
-    $width = $image->getSourceWidth();
-    $height = $image->getSourceHeight();
-    if ($width > $height)
-      $image->resizeToWidth($fullSizeWidth);
-    else
-      $image->resizeToHeight($fullSizeHeight);
-    $image->save($fullFolder."/".$file);
+  $destSizeWidth = 800;
+  $destSizeHeight = 600;
+
+  $sourceFolder = $argv[1];
+  $destinationFolder = $argv[2];
+
+  $files = scandir($sourceFolder);
+  foreach ($files as $file) {
+    if ($file != "." && $file != ".." && !is_dir($sourceFolder."/".$file)) {
+      $image = new \Eventviva\ImageResize($sourceFolder."/".$file);
+      $image->quality_png = 9;
+      $image->quality_jpg = 90;
+      $width = $image->getSourceWidth();
+      $height = $image->getSourceHeight();
+      if ($width > $height)
+        $image->resizeToWidth($destSizeWidth);
+      else
+        $image->resizeToHeight($destSizeHeight);
+      $image->save($destinationFolder."/".$file);
+    }
   }
+
 }
