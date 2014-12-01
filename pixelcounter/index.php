@@ -6,8 +6,6 @@
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  * @copyright Copyright (c) 2014 Martin Kelm
  */
-
-// todo login logic
 define("PC_INDEX", true);
 
 include_once(__DIR__."/config.php");

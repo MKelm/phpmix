@@ -55,8 +55,14 @@ class Database extends Database\Base {
     return $referer;
   }
 
+  function getBrowser() {
+    include_once(__DIR__."/../getbrowser.php");
+    return getBrowser();
+  }
+
   function insertVisit($ip = false, $uri = false, $time = false) {
     try {
+      $browser = $this->getBrowser();
       $this->insert(
         $this->_tableNameVisits,
         array(
@@ -64,7 +70,9 @@ class Database extends Database\Base {
           "time" => $time ? $time : microtime(true),
           "country" => $this->getCountryByIp($ip),
           "host" => $_SERVER["HTTP_HOST"],
-          "uri" => $uri ? $uri : $this->getRefererUri()
+          "uri" => $uri ? $uri : $this->getRefererUri(),
+          "browser" => $browser["name"],
+          "version" => $browser["version"]
         )
       );
       return ($this->_last_affected_rows == 1);
