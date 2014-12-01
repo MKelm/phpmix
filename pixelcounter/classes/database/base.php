@@ -111,7 +111,7 @@ class Base {
   public function count($table, $column, $conditions = null,
                         $groupBy = null, $orderBy = null, $limit = null) {
     $sql = sprintf(
-      "SELECT COUNT(%s) AS amount, %s FROM %s%s%s%s",
+      "SELECT COUNT(%s) AS amount, %s FROM %s%s%s%s%s",
       $this->_connection->real_escape_string($column),
       $this->_connection->real_escape_string($column),
       $this->_connection->real_escape_string($table),
