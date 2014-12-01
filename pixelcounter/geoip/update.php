@@ -1,5 +1,8 @@
 <?php
 
+if (!defined("PC_INDEX"))
+  die("Access denied");
+
 $fileName = "GeoIP.dat.gz";
 $urlBase = "http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/";
 $dataFolder = __DIR__."/data";

@@ -7,7 +7,10 @@
  * @copyright Copyright (c) 2014 Martin Kelm
  */
 $config = array(
-  "iplifetime" => 7 * 86400
+  "iplifetime" => 7 * 86400,
+  "logins" => array(
+    "admin" => "mypassword"
+  )
 );
 
 $config["database"] = array(

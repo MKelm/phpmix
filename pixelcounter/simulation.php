@@ -7,9 +7,13 @@
  * @copyright Copyright (c) 2014 Martin Kelm
  */
 include_once(__DIR__."/config.php");
-include_once(__DIR__."/classes/database.php");
+session_start();
+
+if (empty($_SESSION["valid"]))
+  die("Access denied");
 
 // perform visitor / hits simulation with empty db for debugging purposes
+include_once(__DIR__."/classes/database.php");
 $db = new \PixelCounter\Database($config["database"], true);
 
 // get 10 visitor ips
