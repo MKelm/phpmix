@@ -35,7 +35,7 @@ $db = new \PixelCounter\Database($config["database"]);
         <div class="col-sm-6">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"><strong>Top Visitor-URIs</strong></h3>
+              <h3 class="panel-title"><strong>Top Visits-URIs</strong></h3>
             </div>
             <div class="panel-body">
               <img src="bargraph.php?uris=visitors" alt="">
@@ -58,7 +58,7 @@ $db = new \PixelCounter\Database($config["database"]);
         <div class="col-sm-6">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"><strong>Visitors last Week</strong></h3>
+              <h3 class="panel-title"><strong>Visits Per Day</strong></h3>
             </div>
             <div class="panel-body">
               <img src="bargraph.php" alt="">
@@ -68,7 +68,7 @@ $db = new \PixelCounter\Database($config["database"]);
         <div class="col-sm-6">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"><strong>Hits last Week</strong></h3>
+              <h3 class="panel-title"><strong>Hits Per Day</strong></h3>
             </div>
             <div class="panel-body">
               <img src="bargraph.php?hits=1" alt="">
@@ -81,7 +81,7 @@ $db = new \PixelCounter\Database($config["database"]);
         <div class="col-sm-6">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"><strong>Visitors last 6 Months</strong></h3>
+              <h3 class="panel-title"><strong>Visits Per Month</strong></h3>
             </div>
             <div class="panel-body">
               <img src="bargraph.php?months=1" alt="">
@@ -91,7 +91,7 @@ $db = new \PixelCounter\Database($config["database"]);
         <div class="col-sm-6">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"><strong>Hits last 6 Months</strong></h3>
+              <h3 class="panel-title"><strong>Hits Per Month</strong></h3>
             </div>
             <div class="panel-body">
               <img src="bargraph.php?months=1&hits=1" alt="">

@@ -34,15 +34,18 @@ if (!empty($_GET["uris"])) {
   }
   foreach ($valueKeys as $key) {
     if (empty($_GET["months"])) {
+      $selectedDay = date("d", microtime(true) + $key * 86400);
+      $selectedMonth = date("m", microtime(true) + $key * 86400);
+      $startTime = mktime(0, 0, 0, $selectedMonth, $selectedDay);
+      $endTime = mktime(23, 59, 59, $selectedMonth, $selectedDay);
+
       if (!empty($_GET["hits"])) {
         $values[$key] = $db->getHitsAmountByTimeFrame(
-          microtime(true) + ($key - 1) * 86400,
-          microtime(true) + $key * 86400
+          $startTime, $endTime
         );
       } else {
         $values[$key] = $db->getVisitsAmountByTimeFrame(
-          microtime(true) + ($key - 1) * 86400,
-          microtime(true) + $key * 86400
+          $startTime, $endTime
         );
       }
     } else {
