@@ -40,7 +40,7 @@ class Database extends Database\Base {
 
   function getCountryByIp($ip) {
     include_once(__DIR__."/../geoip/geoip.inc");
-    $gi = geoip_open(__DIR__."/../geoip/GeoIP.dat", GEOIP_STANDARD);
+    $gi = geoip_open(__DIR__."/../geoip/data/GeoIP.dat", GEOIP_STANDARD);
     $result = geoip_country_code_by_addr($gi, $ip);
     // geoip_country_name_by_addr($gi, $ip)
     geoip_close($gi);

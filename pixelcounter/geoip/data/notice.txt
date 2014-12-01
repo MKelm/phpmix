@@ -1,0 +1,2 @@
+Set write permissions to the data folder,
+and use the update script to get the latest GeoIP-Data.
