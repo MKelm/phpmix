@@ -1,1 +1,1 @@
-<img src="image.php?t=<?=microtime(true)?>" alt="" />
+<img src="image.php?time=<?=microtime(true)?>" alt="" />
