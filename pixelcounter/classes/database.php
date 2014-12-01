@@ -32,7 +32,8 @@ class Database extends Database\Base {
       $this->_tableNameVisits, "uid",
       array(
         array("uid", "=", $uid),
-        array("time", ">=", $limitTime)
+        array("time", ">=", $limitTime),
+        array("host", "=", $_SERVER["HTTP_HOST"])
       )
     ) > 0;
   }
@@ -46,6 +47,14 @@ class Database extends Database\Base {
     return $result;
   }
 
+  function getRefererUri() {
+    $referer = $_SERVER["HTTP_REFERER"];
+    $referer = str_replace("http://", "", $referer);
+    $referer = str_replace("https://", "", $referer);
+    $referer = str_replace($_SERVER["HTTP_HOST"], "", $referer);
+    return $referer;
+  }
+
   function insertVisit($ip = false, $uri = false, $time = false) {
     try {
       $this->insert(
@@ -55,7 +64,7 @@ class Database extends Database\Base {
           "time" => $time ? $time : microtime(true),
           "country" => $this->getCountryByIp($ip),
           "host" => $_SERVER["HTTP_HOST"],
-          "uri" => $uri ? $uri : $_SERVER["REQUEST_URI"]
+          "uri" => $uri ? $uri : $this->getRefererUri()
         )
       );
       return ($this->_last_affected_rows == 1);
@@ -72,7 +81,7 @@ class Database extends Database\Base {
           "uid" => $ip ? md5($ip) : md5($_SERVER["REMOTE_ADDR"]),
           "time" => $time ? $time : microtime(true),
           "host" => $_SERVER["HTTP_HOST"],
-          "uri" => $uri ? $uri : $_SERVER["REQUEST_URI"]
+          "uri" => $uri ? $uri : $this->getRefererUri()
         )
       );
       return ($this->_last_affected_rows == 1);
@@ -81,35 +90,63 @@ class Database extends Database\Base {
     }
   }
 
-  function getVisitsAmountByDayFrame($dayOffsetStart, $dayOffsetEnd) {
+  function getVisitsAmount() {
     return $this->count(
       $this->_tableNameVisits, "time",
       array(
-        array("time", ">=", microtime(true) + $dayOffsetStart * 86400),
-        array("time", "<", microtime(true) + $dayOffsetEnd * 86400)
+        array("host", "=", $_SERVER["HTTP_HOST"])
       )
     );
   }
 
-  function getHitsAmountByDayFrame($dayOffsetStart, $dayOffsetEnd) {
+  function getHitsAmount() {
     return $this->count(
       $this->_tableNameHits, "time",
       array(
-        array("time", ">=", microtime(true) + $dayOffsetStart * 86400),
-        array("time", "<", microtime(true) + $dayOffsetEnd * 86400)
+        array("host", "=", $_SERVER["HTTP_HOST"])
+      )
+    );
+  }
+
+  function getVisitsAmountByTimeFrame($timeStart, $timeEnd) {
+    return $this->count(
+      $this->_tableNameVisits, "time",
+      array(
+        array("host", "=", $_SERVER["HTTP_HOST"]),
+        array("time", ">=", $timeStart),
+        array("time", "<", $timeEnd)
+      )
+    );
+  }
+
+  function getHitsAmountByTimeFrame($timeStart, $timeEnd) {
+    return $this->count(
+      $this->_tableNameHits, "time",
+      array(
+        array("host", "=", $_SERVER["HTTP_HOST"]),
+        array("time", ">=", $timeStart),
+        array("time", "<", $timeEnd)
       )
     );
   }
 
   function getTopUriVitiorsList($maxAmount) {
     return $this->count(
-      $this->_tableNameVisits, "uri", array(), "uri", "amount ASC", $maxAmount
+      $this->_tableNameVisits, "uri",
+      array(
+        array("host", "=", $_SERVER["HTTP_HOST"])
+      ),
+      "uri", "amount ASC", $maxAmount
     );
   }
 
   function getTopUriHitsList($maxAmount) {
     return $this->count(
-      $this->_tableNameHits, "uri", array(), "uri", "amount ASC", $maxAmount
+      $this->_tableNameHits, "uri",
+      array(
+        array("host", "=", $_SERVER["HTTP_HOST"])
+      ),
+      "uri", "amount ASC", $maxAmount
     );
   }
 }

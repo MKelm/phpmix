@@ -29,12 +29,44 @@ if (!empty($_GET["uris"])) {
   }
 } else {
   $valueKeys = array_keys($values);
+  if (!empty($_GET["months"])) {
+    $monthValues = array();
+  }
   foreach ($valueKeys as $key) {
-    if (!empty($_GET["hits"])) {
-      $values[$key] = $db->getHitsAmountByDayFrame($key - 1, $key);
+    if (empty($_GET["months"])) {
+      if (!empty($_GET["hits"])) {
+        $values[$key] = $db->getHitsAmountByTimeFrame(
+          microtime(true) + ($key - 1) * 86400,
+          microtime(true) + $key * 86400
+        );
+      } else {
+        $values[$key] = $db->getVisitsAmountByTimeFrame(
+          microtime(true) + ($key - 1) * 86400,
+          microtime(true) + $key * 86400
+        );
+      }
     } else {
-      $values[$key] = $db->getVisitsAmountByDayFrame($key - 1, $key);
+      $monthStart = date("m") + $key;
+      if ($monthStart < 1) {
+        $monthStart = 12 + $monthStart;
+      }
+      $startTime = mktime(0, 0, 0, $monthStart, 1);
+      $endTime = mktime(23, 59, 59, $monthStart, date("t", $startTime));
+
+      if (!empty($_GET["hits"])) {
+        $monthValues[$startTime] = $db->getHitsAmountByTimeFrame(
+          $startTime, $endTime
+        );
+      } else {
+        $monthValues[$startTime] = $db->getVisitsAmountByTimeFrame(
+          $startTime, $endTime
+        );
+      }
     }
+  }
+  if (!empty($_GET["months"])) {
+    $values = $monthValues;
+    $valueKeys = array_keys($values);
   }
 }
 
@@ -78,21 +110,19 @@ for ($i = 0; $i < $columnAmount; $i++) {
     $imgHeight - imagefontheight($fontSize),
     $values[$valueKeys[$i]], $black
   );
-  if (empty($_GET["uris"])) {
-    imagestringup(
-      $im, $fontSize,
-      $x1 + $columnWidth / 2 - imagefontheight($fontSize),
-      $imgHeight - imagefontheight($fontSize) * 2,
-      date("Y-m-d", time() + $valueKeys[$i] * 86400), $black
-    );
+  if (!empty($_GET["months"])) {
+    $stringUp = date("F Y", $valueKeys[$i]);
+  } else if (empty($_GET["uris"])) {
+    $stringUp = date("Y-m-d", time() + $valueKeys[$i] * 86400);
   } else {
-    imagestringup(
-      $im, $fontSize,
-      $x1 + $columnWidth / 2 - imagefontheight($fontSize),
-      $imgHeight - imagefontheight($fontSize) * 2,
-      $valueKeys[$i], $black
-    );
+    $stringUp = $valueKeys[$i];
   }
+  imagestringup(
+    $im, $fontSize,
+    $x1 + $columnWidth / 2 - imagefontheight($fontSize),
+    $imgHeight - imagefontheight($fontSize) * 2,
+    $stringUp, $black
+  );
 }
 
 header("Content-type: image/png");
