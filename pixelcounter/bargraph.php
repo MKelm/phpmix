@@ -24,7 +24,13 @@ $values = array(
   -1 => 0,
   -0 => 0,
 );
-if (!empty($_GET["uris"])) {
+if (!empty($_GET["countries"])) {
+  $values = $db->getTopVisitorsCountriesList(7);
+  $valueKeys = array_keys($values);
+} else if (!empty($_GET["browsers"])) {
+  $values = $db->getTopVisitorsBrowsersList(7);
+  $valueKeys = array_keys($values);
+} else if (!empty($_GET["uris"])) {
   if ($_GET["uris"] == "hits") {
     $values = $db->getTopUriHitsList(7);
     $valueKeys = array_keys($values);
@@ -120,10 +126,11 @@ for ($i = 0; $i < $columnAmount; $i++) {
   );
   if (!empty($_GET["months"])) {
     $stringUp = date("F Y", $valueKeys[$i]);
+  } else if (!empty($_GET["countries"]) || !empty($_GET["browsers"]) ||
+             !empty($_GET["uris"])) {
+    $stringUp = $valueKeys[$i];
   } else if (empty($_GET["uris"])) {
     $stringUp = date("Y-m-d", time() + $valueKeys[$i] * 86400);
-  } else {
-    $stringUp = $valueKeys[$i];
   }
   imagestringup(
     $im, $fontSize,

@@ -157,4 +157,24 @@ class Database extends Database\Base {
       "uri", "amount ASC", $maxAmount
     );
   }
+
+  function getTopVisitorsCountriesList($maxAmount) {
+    return $this->count(
+      $this->_tableNameVisits, "country",
+      array(
+        array("host", "=", $_SERVER["HTTP_HOST"])
+      ),
+      "country", "amount ASC", $maxAmount
+    );
+  }
+
+  function getTopVisitorsBrowsersList($maxAmount) {
+    return $this->count(
+      $this->_tableNameVisits, "browser",
+      array(
+        array("host", "=", $_SERVER["HTTP_HOST"])
+      ),
+      "browser", "amount ASC", $maxAmount
+    );
+  }
 }

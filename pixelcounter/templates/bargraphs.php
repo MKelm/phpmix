@@ -18,29 +18,6 @@ include_once(__DIR__."/../config.php");
   <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>Top Visits-URIs</strong></h3>
-      </div>
-      <div class="panel-body">
-        <img src="bargraph.php?uris=visitors" alt="">
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><strong>Top Hits-URIs</strong></h3>
-      </div>
-      <div class="panel-body">
-        <img src="bargraph.php?uris=hits" alt="">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row" style="text-align: center">
-  <div class="col-sm-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
         <h3 class="panel-title"><strong>Visits Per Day</strong></h3>
       </div>
       <div class="panel-body">
@@ -78,6 +55,52 @@ include_once(__DIR__."/../config.php");
       </div>
       <div class="panel-body">
         <img src="bargraph.php?months=1&hits=1?>" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="text-align: center">
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>Top Visits-URIs</strong></h3>
+      </div>
+      <div class="panel-body">
+        <img src="bargraph.php?uris=visitors" alt="">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>Top Hits-URIs</strong></h3>
+      </div>
+      <div class="panel-body">
+        <img src="bargraph.php?uris=hits" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="text-align: center">
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>Top Visits-Countries</strong></h3>
+      </div>
+      <div class="panel-body">
+        <img src="bargraph.php?countries=1" alt="">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>Top Visits-Browsers</strong></h3>
+      </div>
+      <div class="panel-body">
+        <img src="bargraph.php?browsers=1" alt="">
       </div>
     </div>
   </div>
