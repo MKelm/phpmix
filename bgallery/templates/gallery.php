@@ -61,8 +61,8 @@ if (empty($galleries) && empty($selectedTag)) { ?>
         <? $count = 0; foreach ($images as $image) {
           $imageIdName = md5($image["id"].$image["name"].$image["ext"]).$image["ext"]; ?>
           <div class="col-sm-3">
-            <a class="thumbnail fancybox" title="<?=$image["name"]?><?=$image["ext"]?>" data-fancybox-group="gallery" href="full/<?=$imageIdName?>">
-              <img src="thumb/<?=$imageIdName?>" alt="<?=$image["name"]?><?=$image["ext"]?>">
+            <a class="thumbnail fancybox" title="<?=$image["name"]?><?=$image["ext"]?>" data-fancybox-group="gallery" href="image.full.<?=$imageIdName?>">
+              <img src="image.thumb.<?=$imageIdName?>" alt="<?=$image["name"]?><?=$image["ext"]?>">
             </a>
           </div>
         <? if ($count % 4 == 3) { ?>

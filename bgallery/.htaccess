@@ -1,5 +1,5 @@
 RewriteEngine On
 RewriteBase /bgallery/
-RewriteRule ^thumb/([a-z0-9-\.]+)$ image.php?ifolder=thumbs&iname=$1 [NC,L]
-RewriteRule ^full/([a-z0-9-\.]+)$ image.php?ifolder=full&iname=$1 [NC,L]
+RewriteRule ^image.thumb.([a-z0-9-\.]+)$ image.php?ifolder=thumbs&iname=$1 [NC,L]
+RewriteRule ^image.full.([a-z0-9-\.]+)$ image.php?ifolder=full&iname=$1 [NC,L]
 RewriteRule ^(images/|templates/|classes/) - [F,L,NC]
