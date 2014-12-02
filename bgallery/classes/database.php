@@ -203,4 +203,64 @@ class Database extends Database\Base {
     }
   }
 
+  // TAGS
+
+  function deleteGalleryTags($galleryId) {
+    try {
+      return $this->delete(
+        $this->_tableNameTags,
+        array(
+          array("gallery_id", "=", $galleryId)
+        )
+      );
+    } catch (\Exception $e) {
+      return 0;
+    }
+  }
+
+  function deleteImageTag($galleryId, $imageId, $tag) {
+    try {
+      return $this->delete(
+        $this->_tableNameTags,
+        array(
+          array("gallery_id", "=", $galleryId),
+          array("image_id", "=", $imageId),
+          array("tag", "=", $tag)
+        )
+      );
+    } catch (\Exception $e) {
+      return 0;
+    }
+  }
+
+  function imageTagExists($galleryId, $imageId, $tag) {
+    try {
+      return $this->count(
+        $this->_tableNameTags,
+        "tag",
+        array(
+          array("gallery_id", "=", $galleryId),
+          array("image_id", "=", $imageId),
+          array("tag", "=", $tag)
+        )
+      ) > 0;
+    } catch (\Exception $e) {
+      return false;
+    }
+  }
+
+  function insertImageTag($galleryId, $imageId, $tag) {
+    try {
+      $this->insert(
+        $this->_tableNameTags,
+        array(
+          "gallery_id" => $galleryId, "image_id" => $imageId, "tag" => $tag
+        )
+      );
+      return $this->_last_insert_id;
+    } catch (\Exception $e) {
+      return 0;
+    }
+  }
+
 }

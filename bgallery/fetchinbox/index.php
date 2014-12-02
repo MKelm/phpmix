@@ -71,10 +71,10 @@ for ($m = $numMessages; $m > ($numMessages - $maxMessages); $m--) {
   }
   if (!empty($body)) {
     $bodyTags = getGalleryTags($body);
-  }
-  if (!empty($body) && $bodyTags !== null) {
-    echo "-> Save tags from email $count\n";
-    //sqliteSetTags($subjectParts["folder"], $subjectParts["gallery"], $bodyTags);
+    if ($bodyTags !== null) {
+      echo "-> Save tags from email $count\n";
+      saveGalleryTags($bodyTags, $galleryDB, $galleryId);
+    }
   }
 
   $imageAttachments = getImageAttachments($mbox, $m, $mailStruct);
