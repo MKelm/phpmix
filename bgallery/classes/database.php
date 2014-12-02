@@ -122,6 +122,18 @@ class Database extends Database\Base {
     }
   }
 
+  function countGalleries($userId) {
+    try {
+      $results = $this->count(
+        $this->_tableNameGalleries, "id",
+        array(array("user_id", "=", $userId))
+      );
+      return $results;
+    } catch (\Exception $e) {
+      return 0;
+    }
+  }
+
   function getGalleries($userId) {
     try {
       $results = $this->select(
@@ -167,6 +179,17 @@ class Database extends Database\Base {
     }
   }
 
+  function countImages($galleryId) {
+    try {
+      $results = $this->count(
+        $this->_tableNameImages, "id",
+        array(array("gallery_id", "=", $galleryId))
+      );
+      return $results;
+    } catch (\Exception $e) {
+      return 0;
+    }
+  }
 
   function getImages($galleryId) {
     try {

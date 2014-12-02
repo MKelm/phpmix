@@ -16,7 +16,12 @@ $selectedTag = !empty($_GET["tag"]) ? $_GET["tag"] : "";
 // get users for header navigation
 $users = $galleryDB->getUsers();
 if (!empty($users)) {
-  $selectedUserId = !empty($_GET["user"]) ? $_GET["user"] : $users[0]["id"];
+  foreach ($users as $key => $user) {
+    if ($galleryDB->countGalleries($user["id"]) == 0) {
+      unset($users[$key]);
+    }
+  }
+  $selectedUserId = !empty($_GET["user"]) ? $_GET["user"] : current($users)["id"];
 } else {
   $selectedUserId = 0;
 }
@@ -25,8 +30,13 @@ if (!empty($users)) {
 if (!empty($selectedUserId)) {
   $galleries = $galleryDB->getGalleries($selectedUserId);
   if (!empty($galleries)) {
+    foreach ($galleries as $key => $gallery) {
+      if ($galleryDB->countImages($gallery["id"]) == 0) {
+        unset($galleries[$key]);
+      }
+    }
     $selectedGalleryId = !empty($_GET["gallery"]) ?
-      $_GET["gallery"] : $galleries[0]["id"];
+      $_GET["gallery"] : current($galleries)["id"];
   } else {
     $selectedGalleryId = 0;
   }
