@@ -3,7 +3,8 @@ session_start();
 if (empty($_SESSION["valid"]) || empty($_GET["iname"]) || empty($_GET["ifolder"]))
   die("Access denied");
 
-$imagesDir = __DIR__."/images/".$_GET["ifolder"]."/";
+$imagesDir = __DIR__."/images/".$_GET["ifolder"].
+  "/".substr($_GET["iname"], 0, 2)."/";
 $imageName = $_GET["iname"];
 
 if (strpos($imageName, ".jpg") !== false || strpos($imageName, ".jpeg")) {

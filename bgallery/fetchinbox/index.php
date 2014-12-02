@@ -62,16 +62,6 @@ for ($m = $numMessages; $m > ($numMessages - $maxMessages); $m--) {
   }
 
   $mailStruct = imap_fetchstructure($mbox, $m);
-  $imageAttachments = getImageAttachments($mbox, $m, $mailStruct);
-  if (count($imageAttachments) > 0) {
-    $savedAttachmentsCount = saveImageAttachments(
-      $imageAttachments, $galleryDB, $galleryId, $config["images"]
-    );
-    echo "-> Saved ".$savedAttachmentsCount." image attachments, email $count\n";
-    $attachmentsCount += $savedAttachmentsCount;
-  } else {
-    echo "-> No image attachments, email $count\n";
-  }
 
   if ($mailStruct->type == 1) {
     // multipart
@@ -85,6 +75,17 @@ for ($m = $numMessages; $m > ($numMessages - $maxMessages); $m--) {
   if (!empty($body) && $bodyTags !== null) {
     echo "-> Save tags from email $count\n";
     //sqliteSetTags($subjectParts["folder"], $subjectParts["gallery"], $bodyTags);
+  }
+
+  $imageAttachments = getImageAttachments($mbox, $m, $mailStruct);
+  if (count($imageAttachments) > 0) {
+    $savedAttachmentsCount = saveImageAttachments(
+      $imageAttachments, $galleryDB, $galleryId, $config["images"]
+    );
+    echo "-> Saved ".$savedAttachmentsCount." image attachments, email $count\n";
+    $attachmentsCount += $savedAttachmentsCount;
+  } else {
+    echo "-> No image attachments, email $count\n";
   }
 
   $count++;

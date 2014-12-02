@@ -59,6 +59,24 @@ function getImageFileName($fileName) {
   return null;
 }
 
+function getImageIdNameFolder($imageIdName) {
+  $baseFolders = array("full", "original", "thumbs");
+  $imagesDirectory = __DIR__."/../images/";
+  $imageIdNameFolder = substr($imageIdName, 0, 2);
+  foreach ($baseFolders as $baseFolder) {
+    if (file_exists($imagesDirectory.$baseFolder) == false) {
+      mkdir($imagesDirectory.$baseFolder, 0777, true);
+      chmod($imagesDirectory.$baseFolder, 0777);
+    }
+    $tmpFile = $imagesDirectory.$baseFolder."/".$imageIdNameFolder;
+    if (file_exists($tmpFile) == false) {
+      mkdir($tmpFile, 0777, true);
+      chmod($tmpFile, 0777);
+    }
+  }
+  return $imageIdNameFolder."/";
+}
+
 function saveImageAttachments($attachments, $db, $galleryId, $config) {
 
   $baseImagesFolder = __DIR__."/../images/";
@@ -69,6 +87,7 @@ function saveImageAttachments($attachments, $db, $galleryId, $config) {
   $attachmentsCount = 0;
   foreach ($attachments as $attachment) {
     $fileName = getImageFileName($attachment["filename"]);
+
     if ($fileName != null) {
       $fileExt = $fileName[0];
       $fileName = $fileName[1];
@@ -82,12 +101,15 @@ function saveImageAttachments($attachments, $db, $galleryId, $config) {
         continue;
       $imageIdName = md5($imageId.$fileName.$fileExt).$fileExt;
 
+      $imageIdNameFolder = getImageIdNameFolder($imageIdName);
       $attachmentsCount++;
       file_put_contents(
-        $originalImagesFolder.$imageIdName, $attachment["attachment"]
+        $originalImagesFolder.$imageIdNameFolder.$imageIdName, $attachment["attachment"]
       );
 
-      $image = new \BGallery\ImageResize($originalImagesFolder.$imageIdName);
+      $image = new \BGallery\ImageResize(
+        $originalImagesFolder.$imageIdNameFolder.$imageIdName
+      );
       $image->quality_png = 9;
       $image->quality_jpg = 90;
       $width = $image->getSourceWidth();
@@ -96,14 +118,16 @@ function saveImageAttachments($attachments, $db, $galleryId, $config) {
         $image->resizeToWidth($config["fullwidth"]);
       else
         $image->resizeToHeight($config["fullheight"]);
-      $image->save($fullImagesFolder.$imageIdName);
+      $image->save($fullImagesFolder.$imageIdNameFolder.$imageIdName);
 
-      $image = new \BGallery\ImageResize($originalImagesFolder.$imageIdName);
+      $image = new \BGallery\ImageResize(
+        $originalImagesFolder.$imageIdNameFolder.$imageIdName
+      );
       $image->quality_png = 9;
       $image->quality_jpg = 90;
       $image->resizeToWidth($config["thumbsize"]);
       $image->crop($config["thumbsize"], $config["thumbsize"]);
-      $image->save($thumbsImagesFolder.$imageIdName);
+      $image->save($thumbsImagesFolder.$imageIdNameFolder.$imageIdName);
     }
   }
   return $attachmentsCount;
