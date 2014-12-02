@@ -179,6 +179,21 @@ class Database extends Database\Base {
     }
   }
 
+  function getImageById($imageId) {
+    try {
+      $results = $this->select(
+        $this->_tableNameImages,
+        array("id", "gallery_id", "name", "ext"),
+        array(
+          array("id", "=", $imageId)
+        )
+      );
+      return current($results);
+    } catch (\Exception $e) {
+      return array();
+    }
+  }
+
   function countImages($galleryId) {
     try {
       $results = $this->count(
@@ -191,11 +206,12 @@ class Database extends Database\Base {
     }
   }
 
-  function getImages($galleryId) {
+  function getImages($galleryId, $limit = null) {
     try {
       $results = $this->select(
         $this->_tableNameImages, array("id", "name", "ext"),
-        array(array("gallery_id", "=", $galleryId))
+        array(array("gallery_id", "=", $galleryId)),
+        null, null, $limit
       );
       return $results;
     } catch (\Exception $e) {
@@ -260,6 +276,44 @@ class Database extends Database\Base {
       return $this->_last_insert_id;
     } catch (\Exception $e) {
       return 0;
+    }
+  }
+
+  function getGalleryTags($galleryId) {
+    try {
+      // all images of one gallery have the same tags
+      $firstImage = current($this->getImages($galleryId, 1));
+      $results = $this->select(
+        $this->_tableNameTags, array("tag"),
+        array(
+          array("gallery_id", "=", $galleryId),
+          array("image_id", "=", $firstImage["id"])
+        )
+      );
+      return $results;
+    } catch (\Exception $e) {
+      return array();
+    }
+  }
+
+  function getImagesByTag($tag, $limit = 48) {
+    try {
+      $results = $this->select(
+        $this->_tableNameTags, array("image_id"),
+        array(
+          array("tag", "=", $tag)
+        ),
+        null, null, $limit
+      );
+      $taggedImages = array();
+      if (!empty($results)) {
+        foreach ($results as $result) {
+          $taggedImages[] = $this->getImageById($result["image_id"]);
+        }
+      }
+      return $taggedImages;
+    } catch (\Exception $e) {
+      return array();
     }
   }
 

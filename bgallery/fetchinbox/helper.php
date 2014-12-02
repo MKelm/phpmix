@@ -43,12 +43,14 @@ function saveGalleryTags($bodyTags, $db, $galleryId) {
           $db->deleteGalleryTags($galleryId);
           foreach ($updateImages as $image) {
             foreach ($tags as $tag) {
+              $tag = strtolower($tag);
               $db->insertImageTag($galleryId, $image["id"], $tag);
             }
           }
         } else if ($mode == "add" && $tags !== null) {
           foreach ($updateImages as $image) {
             foreach ($tags as $tag) {
+              $tag = strtolower($tag);
               if (!$db->imageTagExists($galleryId, $image["id"], $tag))
                 $db->insertImageTag($galleryId, $image["id"], $tag);
             }
@@ -56,6 +58,7 @@ function saveGalleryTags($bodyTags, $db, $galleryId) {
         } else if ($mode == "remove" && $tags !== null) {
           foreach ($updateImages as $image) {
             foreach ($tags as $tag) {
+              $tag = strtolower($tag);
               $db->deleteImageTag($galleryId, $image["id"], $tag);
             }
           }

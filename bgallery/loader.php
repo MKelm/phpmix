@@ -10,6 +10,11 @@ if (!defined("BG_INDEX"))
   die("Access denied");
 
 $selectedTag = !empty($_GET["tag"]) ? $_GET["tag"] : "";
+if (!empty($selectedTag)) {
+  $taggedImages = $galleryDB->getImagesByTag($selectedTag);
+} else {
+  $taggedImages = array();
+}
 
 // default view folder / gallery
 
@@ -47,4 +52,11 @@ if (!empty($selectedGalleryId)) {
   $images = $galleryDB->getImages($selectedGalleryId);
 } else {
   $images = array();
+}
+
+// get tags by selected gallery
+if (!empty($selectedGalleryId)) {
+  $galleryTags = $galleryDB->getGalleryTags($selectedGalleryId);
+} else {
+  $galleryTags = array();
 }

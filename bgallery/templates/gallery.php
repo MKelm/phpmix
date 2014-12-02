@@ -44,10 +44,11 @@ if (empty($galleries) && empty($selectedTag)) { ?>
       <!-- tagged images output -->
         <!-- gallery grid content -->
         <div class="row">
-        <? $count = 0; foreach ($taggedImages as $taggedImage) { ?>
+        <? $count = 0; foreach ($taggedImages as $taggedImage) {
+          $imageIdName = md5($taggedImage["id"].$taggedImage["name"].$taggedImage["ext"]).$taggedImage["ext"]; ?>
           <div class="col-sm-3">
-            <a class="thumbnail fancybox" title="" data-fancybox-group="gallery" href="<?=$taggedImage[1]?>">
-              <img src="<?=$taggedImage[0]?>" alt="...">
+            <a class="thumbnail fancybox" title="<?=$taggedImage["name"]?><?=$taggedImage["ext"]?>" data-fancybox-group="gallery" href="<?=$tplLinkBase?>image.full.<?=$imageIdName?>">
+              <img src="<?=$tplLinkBase?>image.thumb.<?=$imageIdName?>" alt="<?=$taggedImage["name"]?><?=$taggedImage["ext"]?>">
             </a>
           </div>
         <? if ($count % 4 == 3) { ?>
@@ -74,7 +75,7 @@ if (empty($galleries) && empty($selectedTag)) { ?>
         <? if (!empty($galleryTags)) { ?>
         <div class="btn-group" role="group" aria-label="...">
           <? foreach ($galleryTags as $galleryTag) { ?>
-          <a role="button" class="btn btn-default" href="?tag=<?=$galleryTag?>"><?=$galleryTag?></a>
+          <a role="button" class="btn btn-default" href="<?=$tplLinkBase?>tag/<?=$galleryTag["tag"]?>"><?=$galleryTag["tag"]?></a>
           <? } ?>
         </div>
         <? } ?>
