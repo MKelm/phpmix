@@ -1,0 +1,1 @@
+Please set images folder permissions to 777
