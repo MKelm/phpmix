@@ -28,7 +28,7 @@ if (empty($galleries) && empty($selectedTag)) { ?>
       <? if (empty($selectedTag)) { ?>
       <div class="btn-group" role="group" aria-label="...">
         <? foreach ($galleries as $gallery) { ?>
-        <a role="button" class="btn btn-default <?=tplGalleryActive($gallery["id"])?>" href="?user=<?=$selectedUserId?>&gallery=<?=$gallery["id"]?>"><?=$gallery["name"]?></a>
+        <a role="button" class="btn btn-default <?=tplGalleryActive($gallery["id"])?>" href="<?=$tplLinkBase?>user/<?=$selectedUserId?>/gallery/<?=$gallery["id"]?>"><?=$gallery["name"]?></a>
         <? } ?>
       </div>
       <? } else { ?>
@@ -61,8 +61,8 @@ if (empty($galleries) && empty($selectedTag)) { ?>
         <? $count = 0; foreach ($images as $image) {
           $imageIdName = md5($image["id"].$image["name"].$image["ext"]).$image["ext"]; ?>
           <div class="col-sm-3">
-            <a class="thumbnail fancybox" title="<?=$image["name"]?><?=$image["ext"]?>" data-fancybox-group="gallery" href="image.full.<?=$imageIdName?>">
-              <img src="image.thumb.<?=$imageIdName?>" alt="<?=$image["name"]?><?=$image["ext"]?>">
+            <a class="thumbnail fancybox" title="<?=$image["name"]?><?=$image["ext"]?>" data-fancybox-group="gallery" href="<?=$tplLinkBase?>image.full.<?=$imageIdName?>">
+              <img src="<?=$tplLinkBase?>image.thumb.<?=$imageIdName?>" alt="<?=$image["name"]?><?=$image["ext"]?>">
             </a>
           </div>
         <? if ($count % 4 == 3) { ?>

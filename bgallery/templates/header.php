@@ -17,17 +17,17 @@ function tplUserActive($cUserId) {
 ?>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
-    <a class="navbar-brand" href="?">BGallery</a>
+    <a class="navbar-brand" href="<?=$tplLinkBase?>">BGallery</a>
     <? if (!empty($users)) { ?>
     <ul class="nav navbar-nav">
       <? foreach ($users as $user) { ?>
-      <li <?=tplUserActive($user["id"])?>><a href="?user=<?=$user["id"]?>"><?=$user["name"]?></a></li>
+      <li <?=tplUserActive($user["id"])?>><a href="<?=$tplLinkBase?>user/<?=$user["id"]?>"><?=$user["name"]?></a></li>
       <? } ?>
     </ul>
     <? } ?>
     <ul class="nav navbar-nav navbar-right">
       <? if (!empty($_SESSION["valid"])) { ?>
-      <li><a href="?action=logout">Logout</a></li>
+      <li><a href="<?=$tplLinkBase?>action/logout">Logout</a></li>
       <? } ?>
       <li><a href="http://idx.shrt.ws">(c) IDX.codelab</a></li>
     </ul>

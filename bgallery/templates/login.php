@@ -30,7 +30,7 @@ function tplFormGetFieldClass($formAction, $fieldName) {
 <div class="panel panel-default">
   <div class="panel-heading"><h3 class="panel-title"><strong>Login</strong></h3></div>
   <div class="panel-body">
-    <form role="form" name="contact" action="?action=login" method="post" accept-charset="utf-8">
+    <form role="form" name="contact" action="<?=$tplLinkBase?>action/login" method="post" accept-charset="utf-8">
       <div class="form-group <?tplFormGetFieldClass("login", "name")?>">
         <label for="name">Name</label>
         <input type="text" name="name" class="form-control" placeholder="Name" value="<?tplFormGetField("login", "name")?>">

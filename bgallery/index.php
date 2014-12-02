@@ -33,4 +33,5 @@ if (!empty($_SESSION["valid"])) {
 }
 
 // get output
+$tplLinkBase = ($_SERVER['SERVER_NAME'] == "localhost") ? "/bgallery/" : "/";
 include_once(__DIR__."/templates/main.php");

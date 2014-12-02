@@ -16,13 +16,12 @@ if (!defined("BG_INDEX"))
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="robots" content="index,follow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/images/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/custom.css">
-    <link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox.css" />
-    <script type="text/javascript" src="bootstrap/jquery.min.js"></script>
-    <script type="text/javascript" src="fancybox/jquery.mousewheel.min.js"></script>
-    <script type="text/javascript" src="fancybox/jquery.fancybox.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?=$tplLinkBase?>bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?=$tplLinkBase?>bootstrap/custom.css">
+    <link rel="stylesheet" type="text/css" href="<?=$tplLinkBase?>fancybox/jquery.fancybox.css" />
+    <script type="text/javascript" src="<?=$tplLinkBase?>bootstrap/jquery.min.js"></script>
+    <script type="text/javascript" src="<?=$tplLinkBase?>fancybox/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="<?=$tplLinkBase?>fancybox/jquery.fancybox.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
         $(".fancybox").fancybox();

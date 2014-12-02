@@ -1,5 +1,8 @@
 RewriteEngine On
 RewriteBase /bgallery/
+RewriteRule ^action/([a-z]+)$ index.php?action=$1 [NC,L]
+RewriteRule ^user/([0-9]+)$ index.php?user=$1 [NC,L]
+RewriteRule ^user/([0-9]+)/gallery/([0-9]+)$ index.php?user=$1&gallery=$2 [NC,L]
 RewriteRule ^image.thumb.([a-z0-9-\.]+)$ image.php?ifolder=thumbs&iname=$1 [NC,L]
 RewriteRule ^image.full.([a-z0-9-\.]+)$ image.php?ifolder=full&iname=$1 [NC,L]
 RewriteRule ^(images/|templates/|classes/) - [F,L,NC]
