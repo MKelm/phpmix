@@ -8,10 +8,6 @@
  */
 if (!defined("PC_INDEX"))
   die("Access denied");
-
-include_once(__DIR__."/../config.php");
-include_once(__DIR__."/../classes/database.php");
-$db = new \PixelCounter\Database($config["database"]);
 ?>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">

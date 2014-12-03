@@ -11,15 +11,24 @@ define("PC_INDEX", true);
 include_once(__DIR__."/config.php");
 session_start();
 
+include_once(__DIR__."/classes/database.php");
+$db = new \PixelCounter\Database($config["database"]);
+
 $action = !empty($_GET["action"]) ? $_GET["action"] : "";
 $actionStatus = false;
-if (empty($_SESSION["valid"])) {
-  if ($action == "login" && !empty($_POST["name"]) && !empty($_POST["password"])
-      && isset($config["logins"][$_POST["name"]]) &&
-      $config["logins"][$_POST["name"]] == $_POST["password"]) {
-    $actionStatus = true;
-    $_SESSION["valid"] = 1;
+if (empty($_SESSION["valid"]) && $action == "login") {
+  include_once(__DIR__."/classes/login.php");
+  $login = new PixelCounter\Login($db, $config["usertable"]);
+  if ($login->setFormValues($_POST)) {
+    $actionStatus = $login->perform();
+    $formValues = $login->getFormValues();
+    if ($actionStatus == true) {
+      $_SESSION["valid"] = 1;
+    }
+  } else {
+    $formValues = $login->getFormValues();
   }
+  $formErrors = $login->getFormErrors();
 } else if ($action == "logout") {
   unset($_SESSION["valid"]);
   session_destroy();

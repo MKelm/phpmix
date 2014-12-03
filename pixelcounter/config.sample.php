@@ -8,14 +8,12 @@
  */
 $config = array(
   "iplifetime" => 7 * 86400,
-  "logins" => array(
-    "admin" => "mypassword"
-  )
+  "usertable" => "pc_users"
 );
 
 $config["database"] = array(
   "ip" => "localhost",
   "name" => "pixelcounter",
   "user" => "pixelcounter",
-  "pass" => "pixelcounter"
+  "pass" => "pixelcounter",
 );
