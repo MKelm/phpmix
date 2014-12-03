@@ -35,7 +35,7 @@ function tplFormGetFieldClass($formAction, $fieldName) {
         <label for="name">Name</label>
         <input type="text" name="name" class="form-control" placeholder="Name" value="<?tplFormGetField("login", "name")?>">
       </div>
-      <div class="form-group <?tplFormGetFieldClass("login", "email")?>">
+      <div class="form-group <?tplFormGetFieldClass("login", "password")?>">
         <label for="password">Password</label>
         <input type="password" name="password" class="form-control" placeholder="Password" value="<?tplFormGetField("login", "password")?>">
       </div>

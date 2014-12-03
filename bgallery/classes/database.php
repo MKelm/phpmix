@@ -81,10 +81,10 @@ class Database extends Database\Base {
         array("id", "name", "email"),
         array(
           array("name", "=", $name),
-          array("password", "=", hash('sha256', $password))
+          array("password", "=", $password)
         )
       );
-      return current($results);
+      return $results;
     } catch (\Exception $e) {
       return array();
     }

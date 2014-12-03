@@ -17,11 +17,18 @@ $galleryDB = new \BGallery\Database($config["database"]);
 $action = !empty($_GET["action"]) ? $_GET["action"] : "";
 $actionStatus = false;
 if (empty($_SESSION["valid"]) && $action == "login") {
-  $user = $galleryDB->getUserByLogin($_POST["name"], $_POST["password"]);
-  if (!empty($user)) {
-    $actionStatus = true;
-    $_SESSION["valid"] = 1;
+  include_once(__DIR__."/classes/login.php");
+  $login = new BGallery\Login($galleryDB);
+  if ($login->setFormValues($_POST)) {
+    $actionStatus = $login->perform();
+    $formValues = $login->getFormValues();
+    if ($actionStatus == true) {
+      $_SESSION["valid"] = 1;
+    }
+  } else {
+    $formValues = $login->getFormValues();
   }
+  $formErrors = $login->getFormErrors();
 } else if ($action == "logout") {
   unset($_SESSION["valid"]);
   session_destroy();
