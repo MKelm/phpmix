@@ -15,5 +15,5 @@ $config["database"] = array(
   "ip" => "localhost",
   "name" => "pixelcounter",
   "user" => "pixelcounter",
-  "pass" => "pixelcounter",
+  "pass" => "pixelcounter"
 );
