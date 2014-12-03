@@ -6,8 +6,8 @@
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  * @copyright Copyright (c) 2014 Martin Kelm
  */
-header('Content-Type: image/gif');
-echo base64_decode("R0lGODdhAQABAIAAAPxqbAAAACwAAAAAAQABAAACAkQBADs=");
+header('Content-Type: image/png');
+echo base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=');
 
 if (!empty($_GET["time"]) && !empty($_SERVER["HTTP_REFERER"])) {
 
