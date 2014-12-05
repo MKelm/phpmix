@@ -144,7 +144,7 @@ class Database extends Database\Base {
       array(
         array("host", "=", $_SERVER["HTTP_HOST"])
       ),
-      "uri", "amount ASC", $maxAmount
+      "uri", "amount DESC", $maxAmount
     );
   }
 
@@ -154,7 +154,7 @@ class Database extends Database\Base {
       array(
         array("host", "=", $_SERVER["HTTP_HOST"])
       ),
-      "uri", "amount ASC", $maxAmount
+      "uri", "amount DESC", $maxAmount
     );
   }
 
@@ -164,7 +164,7 @@ class Database extends Database\Base {
       array(
         array("host", "=", $_SERVER["HTTP_HOST"])
       ),
-      "country", "amount ASC", $maxAmount
+      "country", "amount DESC", $maxAmount
     );
   }
 
@@ -174,7 +174,7 @@ class Database extends Database\Base {
       array(
         array("host", "=", $_SERVER["HTTP_HOST"])
       ),
-      "browser", "amount ASC", $maxAmount
+      "browser", "amount DESC", $maxAmount
     );
   }
 }
