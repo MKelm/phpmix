@@ -22,7 +22,7 @@ CREATE TABLE `bg_users` (
   `name` varchar(32) NOT NULL,
   `email` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `group` smallint(5) unsigned NOT NULL
+  `level` smallint(5) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `bg_galleries`
@@ -35,7 +35,7 @@ ALTER TABLE `bg_tags`
  ADD KEY `gallery_id` (`gallery_id`), ADD KEY `tag` (`tag`), ADD KEY `image_id` (`image_id`);
 
 ALTER TABLE `bg_users`
- ADD PRIMARY KEY (`id`), ADD KEY `name` (`name`), ADD KEY `email` (`email`), ADD KEY `password` (`password`), ADD KEY `group` (`group`);
+ ADD PRIMARY KEY (`id`), ADD KEY `name` (`name`), ADD KEY `email` (`email`), ADD KEY `password` (`password`), ADD KEY `level` (`level`);
 
 ALTER TABLE `bg_galleries`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
