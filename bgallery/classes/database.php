@@ -39,7 +39,8 @@ class Database extends Database\Base {
         $this->_tableNameUsers,
         array(
           "name" => $name, "email" => $email,
-          "password" => hash('sha256', $password)
+          "password" => hash('sha256', $password),
+          "group" => 0
         )
       );
       return $this->_last_insert_id;
